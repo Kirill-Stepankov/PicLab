@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    container_name: web
+    build: .
+    command: uvicorn src.main:app --host 0.0.0.0 --reload
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    volumes:
+      - mongodb_data:/data/db
+    env_file:
+      - .env
+    ports:
+      - "27017:27017"
+volumes:
+  mongodb_data:
