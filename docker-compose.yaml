@@ -21,5 +21,33 @@ services:
       - .env
     ports:
       - "27017:27017"
+  rabbit:
+    container_name: rabbit
+    image: rabbitmq:3-management
+    env_file:
+      - .env
+    ports:
+      - 5672:5672
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+  celery_worker:
+    restart: always
+    container_name: celery_worker
+    build: .
+    command: sh ./entrypoint_celery.sh
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbit
+  redis:
+    restart: unless-stopped
+    image: redis:7.0.5-alpine
+    expose:
+      - '6379:6379'
+    env_file:
+      - .env
 volumes:
   mongodb_data:
+  rabbitmq_data:
