@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One your pic</title>
+</head>
+<body>
+    <img src="data:image/jpeg;base64,{{ original_image | safe }}">
+    <img src="data:image/jpeg;base64,{{ processed_image | safe }}">
+
+</body>
+</html>

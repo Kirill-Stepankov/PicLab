@@ -19,6 +19,7 @@ async def connect_and_init_db():
     global db_client
     try:
         db_client = AsyncIOMotorClient(
+            'app',
             os.getenv('MONGO_DB_HOST'),
             username=os.getenv('MONGO_DB_USERNAME'),
             password=os.getenv('MONGO_DB_PASSWORD'),
